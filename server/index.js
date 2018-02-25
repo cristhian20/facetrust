@@ -9,6 +9,7 @@ import Twitter from "twitter";
 // import multer from "multer";
 // import async from "async";
 require("dotenv").config();
+import socketio from "socket.io";
 
 var client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -23,15 +24,15 @@ var client = new Twitter({
 //   console.log(response); // Raw response object.
 // });
 
-client.post("statuses/update", { status: "I Love Twitter" }, function(
-  error,
-  tweet,
-  response
-) {
-  if (error) throw error;
-  console.log(tweet); // Tweet body.
-  console.log(response); // Raw response object.
-});
+// client.post("statuses/update", { status: "I Love Twitter" }, function(
+//   error,
+//   tweet,
+//   response
+// ) {
+//   if (error) throw error;
+//   console.log(tweet); // Tweet body.
+//   console.log(response); // Raw response object.
+// });
 
 // fs.readdirSync(__dirname + "/models").forEach(function(filename) {
 //   if (~filename.indexOf(".js")) require(__dirname + "/models/" + filename);
@@ -82,5 +83,16 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../", "build", "index.html"));
 });
 const port = process.env.PORT || 9001;
-app.listen(port);
+const server = app.listen(port);
 console.log(`express app listening on port ${port}`);
+
+const websocket = socketio(server);
+
+websocket.on("connection", socket => {
+  socket.on("start-tweets", tweet => {
+    websocket.sockets.emit("tweets", data.body.tracks.items);
+  });
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
