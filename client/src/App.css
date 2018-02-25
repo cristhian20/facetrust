@@ -1,3 +1,22 @@
+@font-face {
+  font-family: 'Apercu';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/Apercu.eot');
+  src: local('Gotham'),
+    url('./fonts/Apercu.woff2') format('woff2'),
+    url('./fonts/Apercu.otf') format('otf'),
+    url('./fonts/Apercu.ttf') format('ttf'),
+    url('./fonts/Apercu.woff') format('woff')
+}
+
+h1 {
+  color: #644980;
+}
+
+h1, h2, h3, p, li {
+  font-family: 'Apercu', sans-serif;
+}
 
 body {
   width: 100%;
@@ -5,6 +24,7 @@ body {
   background: #e6e6e6;
   padding: 40px;
   box-sizing: border-box;
+  background-image: url("./img/firewatch.jpg");
 }
 
 header {
@@ -12,12 +32,26 @@ header {
   padding: 20px;
   box-sizing: border-box;
   box-shadow: 0px 2px 27px 0px rgba(148, 141, 141, 0.5);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 main {
   margin-top: 20px;
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
+}
+
+li {
+  list-style: none;
+}
+
+.text {
+  color: #ec895f;
+  font-weight: bold;
 }
 
 .tweet-list {
@@ -32,9 +66,11 @@ main {
 .featured-image {
   margin-left: 10px;
   width: 50%;
-  height: 100px;
-  background: grey;
+  height: 100vh;
+  object-fit: scale-down;
 }
+
+
 
 .tweet {
   border: 2px solid #efe9e9;
@@ -42,8 +78,38 @@ main {
   padding: 5px;
   margin: 20px 0;
   cursor: pointer;
+  animation: slidein 0.5s;
 }
 
 .tweet:hover {
   border: 2px solid #888;
+}
+
+.fyre-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fyre-button {
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #c7bdbd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.fyre-button:hover {
+  border-color: #fe7f4a;
+  background: #fe7f4a;
+  color: white;
+}
+
+@keyframes slidein {
+  0% {
+    transform: translate3d(0, 20vh,0)
+  }
+  100% {
+    transform: translate3d(0, 0vh,0)
+  }
 }
